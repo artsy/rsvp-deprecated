@@ -1,12 +1,12 @@
 import { connect } from 'joiql-mongo'
 import Koa from 'koa'
-// import article from './apps/article'
+import event from './apps/event'
 
 const app = new Koa()
 const { PORT, MONGO_URL } = process.env
 
 // Mount apps
-// app.use(...article.middleware)
+app.use(...event.middleware)
 
 // Connect to Mongo and start server
 connect(MONGO_URL)
