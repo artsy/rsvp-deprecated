@@ -8,5 +8,4 @@ export default model('event', {
     .meta((is) => ({
       'create': is.forbidden().default(new Date())
     })),
-  reservation_ids: array().items(objectid())
 })
