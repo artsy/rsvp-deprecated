@@ -8,7 +8,9 @@ const api = new Lokka({
 })
 
 export const state = tree({
-  event: {}
+  event: {},
+  reservation: {},
+  num_of_guests: 0,
 })
 
 export const index = async (ctx) => {
@@ -16,5 +18,14 @@ export const index = async (ctx) => {
     api.query(`{ event(_id: "${ctx.params.id}") { name presented_by maximum_guests } }`)
   )
   state.set('event', event)
+  state.set('reservation', {
+    name: '',
+    email: '',
+    guests: []
+  })
   ctx.render({ body: Index })
+}
+
+export const setNumOfGuests = async (num) => {
+  state.set('num_of_guests', num)
 }
