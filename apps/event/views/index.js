@@ -1,11 +1,11 @@
 import veact from 'veact'
-import { state, setNumOfGuests } from '../controllers'
+import { state, setNumOfGuests, createReservation } from '../controllers'
 import { assign, times } from 'lodash'
 import { type, smallMargin, mediumMargin, grayRegular } from './lib'
 
 const view = veact()
 
-const { div, h5, h1, input, label, select, option } = view.els()
+const { div, h5, h1, input, form, label, select, option, button } = view.els()
 
 view.styles({
   h1: assign(
@@ -39,6 +39,17 @@ view.styles({
       padding: 5,
       outline: 'none'
     }
+  ),
+  button: assign(
+    type('avantgarde', 'mediumHeadline'),
+    {
+      background: 'black',
+      color: 'white',
+      width: '100%',
+      padding: 10,
+      border: 'none',
+      margin: `${smallMargin} 0`
+    }
   )
 })
 
@@ -48,35 +59,39 @@ view.render(() =>
       h5('.h5', state.get('event').presented_by),
       h1('.h1', state.get('event').name),
     ),
-    label('.label', "Name"),
-    input('.input', {
-      placeholder: `Name`,
-    }),
-    label('.label', "Email"),
-    input('.input', {
-      placeholder: `Email`,
-    }),
-    label('.label', "How many guests would you like to bring?"),
-    select({ onChange: (e) => setNumOfGuests(e.target.value) }, (() => {
-      let els = []
-      times(state.get('event').maximum_guests, (index) => {
-        els.push( option({
-          value: index,
-          selected: state.get('num_of_guests') === index
-        }, index) )
-      })
-      return els
-    })()),
-    (() => {
-      let els = []
-      times(state.get('num_of_guests'), (index) => {
-        els.push([
-          label('.label', `Your Guests Name`),
-          input('.input', { name: `guests[]` })
-        ])
-      })
-      return els
-    })()
+    form({onSubmit: createReservation },
+      label('.label', "Name"),
+      input('.input', {
+        name: 'name',
+        placeholder: `Name`,
+        onChange: (e) => state.select('reservation').set('name', e.target.value),
+      }),
+      label('.label', "Email"),
+      input('.input', {
+        name: 'email',
+        placeholder: `Email`,
+        onChange: (e) => state.select('reservation').set('email', e.target.value),
+      }),
+      label('.label', "How many guests would you like to bring?"),
+      select({ onChange: (e) => setNumOfGuests(e.target.value), defaultValue: state.get('num_of_guests') }, (() => {
+        let els = []
+        times(state.get('event').maximum_guests, (index) => {
+          els.push( option({ value: index }, index) )
+        })
+        return els
+      })()),
+      (() => {
+        let els = []
+        times(state.get('num_of_guests'), (index) => {
+          els.push([
+            label('.label', `Your Guests Name`),
+            input('.input', { name: `guests[${index}]` })
+          ])
+        })
+        return els
+      })(),
+      button('.button', 'RSVP')
+    )
   )
 )
 
