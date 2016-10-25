@@ -63,7 +63,7 @@ view.render(() =>
   head(
     style({ dangerouslySetInnerHTML: { __html: reset } }),
     link({ type: 'text/css', rel: 'stylesheet', href: fontsUrl })),
-    title('Artsy RSVP')
+    title({}, 'Artsy RSVP')
 )
 
 export default view()

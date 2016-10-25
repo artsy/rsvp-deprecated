@@ -40,7 +40,13 @@ view.styles({
 view.render(() =>
   div('.container',
     header(),
-    p('.p', 'Thank you for your RSVP.'),
+    (() => {
+      console.log("state.get('event').is_at_capacity", state.get('event').is_at_capacity)
+      if (state.get('event').is_at_capacity) {
+        return p('.p', `Thank you for your interest in our event ${state.get('event').name}. This event is currently at capacity but we have added your name to our mailing list and will be in touch in the chance a space opens up. We appreciate your understanding.`)
+      }
+      return p('.p', 'Thank you for your RSVP.')
+    })(),
     p('.p', 'Sign up for an Artsy account to discover and buy the world\'s greatest art online'),
     a('.button', { href: "https://www.artsy.net/sign_up" }, 'Sign up')
   )
