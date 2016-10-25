@@ -2,13 +2,11 @@ import veact from 'veact'
 import { state, setNumOfGuests, createReservation } from '../controllers'
 import { assign, times } from 'lodash'
 import { type, smallMargin, mediumMargin, grayRegular } from './lib'
-import Header  from './header'
+import Header from './header'
 
 const view = veact()
 
-const { div, input, form, label, select, option, button, header } = view.els({
-  header: Header
-})
+const { div, h5, h1, input, form, label, select, option, button } = view.els()
 
 view.styles({
   container: {
@@ -47,7 +45,7 @@ view.styles({
 
 view.render(() =>
   div('.container',
-    header(),
+    Header(),
     form({onSubmit: createReservation },
       label('.label', "Name"),
       input('.input', {
