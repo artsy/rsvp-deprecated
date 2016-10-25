@@ -6,6 +6,7 @@ const event = model('event', {
   presented_by: string(),
   maximum_guests: number(),
   capacity: number(),
+  closing_date: date(),
   is_at_capacity: boolean()
     .meta((is) => ({
       'update delete create': is.forbidden()
@@ -50,8 +51,10 @@ const reservationCount = async (event_id) => {
 
 const countListMiddleware = async (ctx, next) => {
   await next()
-  await Promise.all(map(ctx.res.events, async (event) => {
-    return await reservationCount(event._id)
+  return await Promise.all(map(ctx.res.events, async (event) => {
+    const count = await reservationCount(event._id)
+    event.reservation_count = count
+    return count
   }))
 }
 
@@ -62,6 +65,5 @@ const countReadMiddleware = async (ctx, next) => {
 
 event.on('list', countListMiddleware)
 event.on('read', countReadMiddleware)
-
 
 export default event

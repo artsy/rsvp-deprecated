@@ -1,7 +1,7 @@
 import veact from 'veact'
 import { state, setNumOfGuests, createReservation } from '../controllers'
 import { assign, times } from 'lodash'
-import { type, smallMargin, mediumMargin, grayRegular } from './lib'
+import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
 import Header  from './header'
 
 const view = veact()

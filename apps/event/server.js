@@ -1,8 +1,8 @@
 import Koa from 'koa'
 import { graphqlize } from 'joiql-mongo'
 import router from './router'
-import * as event from './models/event'
-import * as reservation from './models/reservation'
+import * as event from '../../models/event'
+import * as reservation from '../../models/reservation'
 
 const app = new Koa()
 
