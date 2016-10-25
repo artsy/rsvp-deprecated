@@ -62,5 +62,5 @@ export const createReservation = async (e) => {
       name
     }
   }`)
-  window.location(`/events/${state.get('reservation').event_id}`)
+  window.location = `/${state.get('reservation').event_id}/thank-you`
 }
