@@ -37,7 +37,6 @@ export const thankYou = async (ctx) => {
   const { event } = await ctx.bootstrap(() =>
     api.query(`{ event(_id: "${ctx.params.id}") { name presented_by is_at_capacity } }`)
   )
-  console.log('event', event)
   state.set('event', event)
   ctx.render({ body: ThankYou })
 }
