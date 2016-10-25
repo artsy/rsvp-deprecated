@@ -2,26 +2,18 @@ import veact from 'veact'
 import { state, setNumOfGuests, createReservation } from '../controllers'
 import { assign, times } from 'lodash'
 import { type, smallMargin, mediumMargin, grayRegular } from './lib'
+import Header  from './header'
 
 const view = veact()
 
-const { div, h5, h1, input, form, label, select, option, button } = view.els()
+const { div, input, form, label, select, option, button, header } = view.els({
+  header: Header
+})
 
 view.styles({
-  h1: assign(
-    type('garamond', 'largeHeadline'),
-    { margin: `${smallMargin}px 0` }
-  ),
-  h5: assign(
-    type('avantgarde', 'smallHeadline'),
-    { margin: `${smallMargin}px 0` }
-  ),
   container: {
     width: 400,
     margin: '0 auto'
-  },
-  header: {
-    textAlign: 'center'
   },
   label: assign(
     type('avantgarde', 'smallHeadline'),
@@ -55,10 +47,7 @@ view.styles({
 
 view.render(() =>
   div('.container',
-    div('.header',
-      h5('.h5', state.get('event').presented_by),
-      h1('.h1', state.get('event').name),
-    ),
+    header(),
     form({onSubmit: createReservation },
       label('.label', "Name"),
       input('.input', {
