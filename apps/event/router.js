@@ -2,7 +2,7 @@ import unikoa from 'unikoa'
 import bootstrap from 'unikoa-bootstrap'
 import render from 'unikoa-react-render'
 import { index, state, thankYou, admin } from './controllers'
-import Head from './views/head'
+import Head from '../../lib/head'
 
 const router = unikoa()
 

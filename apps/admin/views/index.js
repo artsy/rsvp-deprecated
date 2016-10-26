@@ -1,7 +1,5 @@
 import veact from 'veact'
 import { state } from '../controllers'
-import { assign } from 'lodash'
-import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
 import EventTable from './event_table'
 import Header from './header'
 

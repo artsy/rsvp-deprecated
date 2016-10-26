@@ -6,7 +6,7 @@ import EventForm from './event_form'
 
 const view = veact()
 
-const { div, h1, input, form, label, select, option, button, header, eventForm } = view.els({
+const { div, h1, eventForm } = view.els({
   eventForm: EventForm
 })
 
@@ -27,7 +27,10 @@ view.styles({
 view.render(() => {
   return div('.formContainer',
     h1('.h1', 'New Event'),
-    eventForm({ event: state.select('newEvent'), onSubmit: createEvent })
+    eventForm({
+      event: state.select('newEvent'),
+      onSubmit: createEvent
+    })
   )
 })
 
