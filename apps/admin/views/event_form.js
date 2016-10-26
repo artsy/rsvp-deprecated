@@ -1,6 +1,7 @@
 import veact from 'veact'
 import { assign, map } from 'lodash'
-import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
+import moment from 'moment'
+import { type, smallMargin, grayRegular } from '../../../lib/styles'
 
 const view = veact()
 
@@ -37,7 +38,7 @@ view.styles({
   )
 })
 
-view.render(({ event, onSubmit }) => {
+view.render(({ event, onSubmit, buttonText }) => {
   console.log('event', event)
   return form({ onSubmit: onSubmit },
     label('.label', "Event title"),
@@ -61,7 +62,7 @@ view.render(({ event, onSubmit }) => {
       name: 'closing_date',
       type: 'date',
       required: true,
-      value: event.get('closing_date'),
+      value: moment(event.get('closing_date')).format('YYYY-MM-DD'),
       onChange: (e) => event.set('closing_date', e.target.value),
     }),
     label('.label', "Event Capacity"),
@@ -80,7 +81,7 @@ view.render(({ event, onSubmit }) => {
       value: event.get('maximum_guests'),
       onChange: (e) => event.set('maximum_guests', e.target.value),
     }),
-    button('.button', 'Create Event')
+    button('.button', `${buttonText}`)
   )
 })
 

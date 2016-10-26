@@ -45,7 +45,7 @@ view.styles({
 
 view.render(({ event, index }) =>
   div('.header',
-    strong('.strong', 'Events'),
+    a('.strong', { href: '/admin' }, 'Events'),
     a('.btn', { href: '/admin/new_event' }, 'New Event')
   )
 )

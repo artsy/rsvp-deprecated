@@ -30,10 +30,9 @@ view.styles({
 
 view.render(({ event, index }) => {
   const rowClass = index % 2 ? '.tr--even' : '.tr--odd'
-
-  return tr(`${rowClass}`,
+  return tr(`${rowClass}`, { onClick: (e) => window.location = `/admin/${event._id}` },
     td('.td', event.name),
-    td('.td', moment(event.closing_date).calendar()),
+    td('.td', moment.utc(event.closing_date).calendar()),
     td('.td', `${event.reservation_count} / ${event.capacity}`)
   )
 })

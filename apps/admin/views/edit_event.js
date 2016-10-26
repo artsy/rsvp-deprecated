@@ -1,5 +1,5 @@
 import veact from 'veact'
-import { state, createEvent } from '../controllers'
+import { state, updateEvent } from '../controllers'
 import { assign } from 'lodash'
 import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
 import EventForm from './event_form'
@@ -30,15 +30,14 @@ view.render(() =>
   div(
     header(),
     div('.formContainer',
-      h1('.h1', 'New Event'),
+      h1('.h1', 'Edit Event'),
       eventForm({
-        event: state.select('newEvent'),
-        onSubmit: createEvent,
-        buttonText: 'Create Event'
+        event: state.select('event'),
+        onSubmit: updateEvent,
+        buttonText: 'Update Event'
       })
     )
   )
-
 )
 
 export default view()

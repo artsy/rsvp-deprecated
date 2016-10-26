@@ -6,7 +6,7 @@ import * as reservation from '../../models/reservation'
 
 const app = new Koa()
 
-router.all('/api', graphqlize(event, reservation))
+router.all('/api/rsvp', graphqlize(event, reservation))
 app.use(router.routes())
 
 export default app

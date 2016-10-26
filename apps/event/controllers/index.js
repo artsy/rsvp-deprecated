@@ -6,7 +6,7 @@ import Index from '../views'
 import ThankYou from '../views/thank_you'
 
 const api = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api')
+  transport: new Transport(process.env.APP_URL + '/api/rsvp')
 })
 
 export const state = tree({
