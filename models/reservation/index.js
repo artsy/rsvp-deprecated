@@ -1,4 +1,4 @@
-import { model, string, array, objectid, date, number, boolean, db } from 'joiql-mongo'
+import { model, string, array, date, boolean, db } from 'joiql-mongo'
 import { assign } from 'lodash'
 import event from '../event/index.js'
 
@@ -25,10 +25,10 @@ const isReservationWaitlisted = async (reservation) => {
 
 const isWaitlistedMiddleware = async (ctx, next) => {
   await next()
-  const is_waitlisted = await isReservationWaitlisted(ctx.res.createReservation)
+  const isWaitlisted = await isReservationWaitlisted(ctx.res.createReservation)
   await reservation.update(assign(ctx.res.createReservation, {
-     _id: `${ctx.res.createReservation._id}`,
-    is_waitlisted: is_waitlisted
+    _id: `${ctx.res.createReservation._id}`,
+    is_waitlisted: isWaitlisted
   }))
 }
 

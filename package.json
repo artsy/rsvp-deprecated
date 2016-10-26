@@ -4,7 +4,13 @@
   "private": true,
   "scripts": {
     "node": "NODE_PATH=$NODE_PATH:./lib node -r dotenv/config -r babel-core/register",
-    "start": "concurrently 'npm run node .' 'mongod'"
+    "start": "concurrently 'npm run node .' 'mongod'",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "npm run lint && npm run mocha test/*"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   },
   "babel": {
     "presets": [
@@ -18,6 +24,7 @@
   "dependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.13.0",
+    "babel-eslint": "^6.1.2",
     "babel-plugin-transform-runtime": "^6.12.0",
     "babel-preset-es2015": "^6.13.0",
     "babel-preset-stage-3": "^6.11.0",
@@ -40,5 +47,13 @@
     "unikoa-react-render": "0.0.3",
     "universal-tree": "0.0.2",
     "veact": "0.0.5"
+  },
+  "devDependencies": {
+    "babel-plugin-rewire": "^1.0.0",
+    "cheerio": "^0.22.0",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "sinon": "^1.17.6",
+    "standard": "^8.1.0"
   }
 }

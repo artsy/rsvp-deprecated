@@ -40,33 +40,42 @@ export const editEvent = async (ctx) => {
 
 export const updateEvent = async (e) => {
   e.preventDefault()
-  await api.mutate(`{
-    updateEvent(
-      _id: "${state.get('event')._id}",
-      name: "${state.get('event').name}",
-      presented_by: "${state.get('event').presented_by}",
-      closing_date: "${moment(state.get('event').closing_date).format()}",
-      capacity: ${state.get('event').capacity},
-      maximum_guests: ${state.get('event').maximum_guests},
-    ) {
-      name
-    }
-  }`)
-  window.location = `/admin`
+  try {
+    await api.mutate(`{
+      updateEvent(
+        _id: "${state.get('event')._id}",
+        name: "${state.get('event').name}",
+        presented_by: "${state.get('event').presented_by}",
+        closing_date: "${moment(state.get('event').closing_date).format()}",
+        capacity: ${state.get('event').capacity},
+        maximum_guests: ${state.get('event').maximum_guests},
+      ) {
+        name
+      }
+    }`)
+    window.location = `/admin`
+  } catch (err) {
+    state.set('error', err.rawError[0].message)
+  }
 }
 
 export const createEvent = async (e) => {
   e.preventDefault()
-  await api.mutate(`{
-    createEvent(
-      name: "${state.get('newEvent').name}",
-      presented_by: "${state.get('newEvent').presented_by}",
-      closing_date: "${state.get('newEvent').closing_date}",
-      capacity: ${state.get('newEvent').capacity},
-      maximum_guests: ${state.get('newEvent').maximum_guests},
-    ) {
-      name
-    }
-  }`)
-  window.location = `/admin`
+  try {
+    await api.mutate(`{
+      createEvent(
+        name: "${state.get('newEvent').name}",
+        presented_by: "${state.get('newEvent').presented_by}",
+        closing_date: "${state.get('newEvent').closing_date}",
+        capacity: ${state.get('newEvent').capacity},
+        maximum_guests: ${state.get('newEvent').maximum_guests},
+      ) {
+        name
+      }
+    }`)
+    window.location = `/admin`
+  } catch (err) {
+    console.log('err', err)
+    state.set('error', err.rawError[0].message)
+  }
 }

@@ -1,6 +1,6 @@
 import veact from 'veact'
-import { state, setNumOfGuests, createReservation } from '../controllers'
-import { assign, times } from 'lodash'
+import { state } from '../controllers'
+import { assign } from 'lodash'
 import { type, smallMargin } from '../../../lib/styles'
 import Header from './header'
 
@@ -47,7 +47,7 @@ view.render(() =>
       return p('.p', 'Thank you for your RSVP.')
     })(),
     p('.p', 'Sign up for an Artsy account to discover and buy the world\'s greatest art online'),
-    a('.button', { href: "https://www.artsy.net/sign_up" }, 'Sign up')
+    a('.button', { href: 'https://www.artsy.net/sign_up' }, 'Sign up')
   )
 )
 

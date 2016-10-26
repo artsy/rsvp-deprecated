@@ -31,7 +31,7 @@ view.styles({
 
 view.render(() => {
   const { current, past } = groupBy(state.get('events'), (event) => {
-    if(moment(event.closing_date).isBefore(moment(), 'day')){
+    if (moment(event.closing_date).isBefore(moment(), 'day')) {
       return 'past'
     }
     return 'current'

@@ -12,7 +12,8 @@ const api = new Lokka({
 export const state = tree({
   event: {},
   reservation: {},
-  num_of_guests: 0,
+  error: '',
+  num_of_guests: 0
 })
 
 export const index = async (ctx) => {
@@ -49,7 +50,7 @@ export const createReservation = async (e) => {
   })
   state.select('reservation').set('guests', guests)
   await api.mutate(`{
-    createReservation(
+    reservation: createReservation(
       name: "${state.get('reservation').name}",
       email: "${state.get('reservation').email}",
       guests: [${guests}],

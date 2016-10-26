@@ -1,5 +1,5 @@
-import { each, map, reduce } from 'lodash'
-import { model, string, array, objectid, date, number, boolean, db } from 'joiql-mongo'
+import { map, reduce } from 'lodash'
+import { model, string, date, number, boolean, db } from 'joiql-mongo'
 
 const event = model('event', {
   name: string(),
@@ -40,8 +40,8 @@ const capacityReadMiddleware = async (ctx, next) => {
 event.on('list', capacityListMiddleware)
 event.on('read', capacityReadMiddleware)
 
-const reservationCount = async (event_id) => {
-  const reservations = await db.reservations.find({ event_id: `${event_id}` }).toArray()
+const reservationCount = async (eventId) => {
+  const reservations = await db.reservations.find({ event_id: `${eventId}` }).toArray()
   return reduce(reservations, (count, reservation) => {
     if (reservation.guests) {
       return 1 + reservation.guests.length + count

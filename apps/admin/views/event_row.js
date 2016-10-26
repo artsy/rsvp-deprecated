@@ -1,7 +1,7 @@
 import veact from 'veact'
 import { assign } from 'lodash'
 import moment from 'moment'
-import { type, smallMargin, grayRegular } from '../../../lib/styles'
+import { type, smallMargin } from '../../../lib/styles'
 
 const view = veact()
 
@@ -21,7 +21,7 @@ view.styles({
     cursor: 'pointer'
   },
   'tr--odd': {
-    background: '#eee',
+    background: '#eee'
   },
   header: {
     textAlign: 'center'
@@ -30,7 +30,7 @@ view.styles({
 
 view.render(({ event, index }) => {
   const rowClass = index % 2 ? '.tr--even' : '.tr--odd'
-  return tr(`${rowClass}`, { onClick: (e) => window.location = `/admin/${event._id}` },
+  return tr(`${rowClass}`, { onClick: (e) => window.location.assign(`/admin/${event._id}`) },
     td('.td', event.name),
     td('.td', moment.utc(event.closing_date).calendar()),
     td('.td', `${event.reservation_count} / ${event.capacity}`)

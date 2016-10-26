@@ -1,6 +1,6 @@
 import veact from 'veact'
 import { assign, map } from 'lodash'
-import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
+import { type, smallMargin } from '../../../lib/styles'
 import EventRow from './event_row'
 
 const view = veact()
@@ -44,7 +44,7 @@ view.render(({ events }) =>
 
     tbody('.tbody',
       (() => {
-        if(events){
+        if (events) {
           return map(events, (event, index) => eventRow({ event, index }))
         }
         return tr(td('.td', { colSpan: 3 }, 'No events'))

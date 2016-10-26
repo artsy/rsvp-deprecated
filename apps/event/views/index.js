@@ -1,8 +1,8 @@
 import veact from 'veact'
 import { state, setNumOfGuests, createReservation } from '../controllers'
 import { assign, times } from 'lodash'
-import { type, smallMargin, mediumMargin, grayRegular } from '../../../lib/styles'
-import Header  from './header'
+import { type, smallMargin, grayRegular } from '../../../lib/styles'
+import Header from './header'
 
 const view = veact()
 
@@ -48,24 +48,24 @@ view.styles({
 view.render(() =>
   div('.container',
     header(),
-    form({onSubmit: createReservation },
-      label('.label', "Name"),
+    form({ onSubmit: createReservation },
+      label('.label', 'Name'),
       input('.input', {
         name: 'name',
         placeholder: `Name`,
-        onChange: (e) => state.select('reservation').set('name', e.target.value),
+        onChange: (e) => state.select('reservation').set('name', e.target.value)
       }),
-      label('.label', "Email"),
+      label('.label', 'Email'),
       input('.input', {
         name: 'email',
         placeholder: `Email`,
-        onChange: (e) => state.select('reservation').set('email', e.target.value),
+        onChange: (e) => state.select('reservation').set('email', e.target.value)
       }),
-      label('.label', "How many guests would you like to bring?"),
+      label('.label', 'How many guests would you like to bring?'),
       select({ onChange: (e) => setNumOfGuests(e.target.value), defaultValue: state.get('num_of_guests') }, (() => {
         let els = []
-        times(state.get('event').maximum_guests, (index) => {
-          els.push( option({ value: index }, index) )
+        times(state.get('event').maximum_guests + 1, (index) => {
+          els.push(option({ value: index }, index))
         })
         return els
       })()),

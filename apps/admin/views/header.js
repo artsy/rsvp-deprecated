@@ -4,7 +4,7 @@ import { type, smallMargin, grayRegular } from '../../../lib/styles'
 
 const view = veact()
 
-const { div, strong, a } = view.els()
+const { div, a } = view.els()
 
 view.styles({
   header: {
@@ -18,11 +18,11 @@ view.styles({
     background: 'white',
     padding: `0 30px`
   },
-  strong:  assign(
+  strong: assign(
     type('avantgarde', 'smallHeadline'),
     {
       margin: `${smallMargin}px 0`,
-      lineHeight: '50px',
+      lineHeight: '50px'
     }
   ),
   btn: assign(
