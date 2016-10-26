@@ -1,11 +1,13 @@
-import { each, map, reduce } from 'lodash'
-import { model, string, array, objectid, date, number, boolean, db } from 'joiql-mongo'
+import { map, reduce } from 'lodash'
+import { model, string, date, number, boolean, db } from 'joiql-mongo'
 
 const event = model('event', {
   name: string(),
   presented_by: string(),
   maximum_guests: number(),
   capacity: number(),
+  closing_date: date(),
+  lock_fields: boolean(),
   is_at_capacity: boolean()
     .meta((is) => ({
       'update delete create': is.forbidden()
@@ -38,8 +40,8 @@ const capacityReadMiddleware = async (ctx, next) => {
 event.on('list', capacityListMiddleware)
 event.on('read', capacityReadMiddleware)
 
-const reservationCount = async (event_id) => {
-  const reservations = await db.reservations.find({ event_id: `${event_id}` }).toArray()
+const reservationCount = async (eventId) => {
+  const reservations = await db.reservations.find({ event_id: `${eventId}` }).toArray()
   return reduce(reservations, (count, reservation) => {
     if (reservation.guests) {
       return 1 + reservation.guests.length + count
@@ -50,8 +52,10 @@ const reservationCount = async (event_id) => {
 
 const countListMiddleware = async (ctx, next) => {
   await next()
-  await Promise.all(map(ctx.res.events, async (event) => {
-    return await reservationCount(event._id)
+  return await Promise.all(map(ctx.res.events, async (event) => {
+    const count = await reservationCount(event._id)
+    event.reservation_count = count
+    return count
   }))
 }
 
@@ -62,6 +66,5 @@ const countReadMiddleware = async (ctx, next) => {
 
 event.on('list', countListMiddleware)
 event.on('read', countReadMiddleware)
-
 
 export default event

@@ -6,17 +6,14 @@ import Index from '../views'
 import ThankYou from '../views/thank_you'
 
 const api = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api/event')
-})
-
-const reservationApi = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api/reservation')
+  transport: new Transport(process.env.APP_URL + '/api/rsvp')
 })
 
 export const state = tree({
   event: {},
   reservation: {},
-  num_of_guests: 0,
+  error: '',
+  num_of_guests: 0
 })
 
 export const index = async (ctx) => {
@@ -52,8 +49,8 @@ export const createReservation = async (e) => {
     guests.push(`"${e.target[`guests[${index}]`].value}"`)
   })
   state.select('reservation').set('guests', guests)
-  await reservationApi.mutate(`{
-    tweet: createReservation(
+  await api.mutate(`{
+    reservation: createReservation(
       name: "${state.get('reservation').name}",
       email: "${state.get('reservation').email}",
       guests: [${guests}],

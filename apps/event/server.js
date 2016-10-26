@@ -1,13 +1,11 @@
 import Koa from 'koa'
 import { graphqlize } from 'joiql-mongo'
 import router from './router'
-import * as event from './models/event'
-import * as reservation from './models/reservation'
+import * as models from '../../models'
 
 const app = new Koa()
 
-router.all('/api/event', graphqlize(event))
-router.all('/api/reservation', graphqlize(reservation))
+router.all('/api/rsvp', graphqlize(models))
 app.use(router.routes())
 
 export default app
