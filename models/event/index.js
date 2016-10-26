@@ -37,8 +37,8 @@ const capacityReadMiddleware = async (ctx, next) => {
   ctx.res.event.is_at_capacity = count >= ctx.res.event.capacity
 }
 
-// event.on('list', capacityListMiddleware)
-// event.on('read', capacityReadMiddleware)
+event.on('list', capacityListMiddleware)
+event.on('read', capacityReadMiddleware)
 
 const reservationCount = async (eventId) => {
   const reservations = await db.reservations.find({ event_id: `${eventId}` }).toArray()
@@ -64,7 +64,7 @@ const countReadMiddleware = async (ctx, next) => {
   ctx.res.event.reservation_count = await reservationCount(ctx.res.event._id)
 }
 
-// event.on('list', countListMiddleware)
-// event.on('read', countReadMiddleware)
+event.on('list', countListMiddleware)
+event.on('read', countReadMiddleware)
 
 export default event
