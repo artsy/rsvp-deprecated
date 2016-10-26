@@ -4,12 +4,8 @@ import tree from 'universal-tree'
 import Index from '../views'
 import NewEvent from '../views/new_event'
 
-const eventApi = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api/event')
-})
-
-const reservationApi = new Lokka({
-  transport: new Transport(process.env.APP_URL + '/api/reservation')
+const api = new Lokka({
+  transport: new Transport(process.env.APP_URL + '/api')
 })
 
 export const state = tree({
@@ -19,7 +15,7 @@ export const state = tree({
 
 export const index = async (ctx) => {
   const { events } = await ctx.bootstrap(() =>
-    eventApi.query(`{ events { name capacity reservation_count } }`)
+    api.query(`{ events { name capacity reservation_count closing_date } }`)
   )
   state.set('events', events)
   ctx.render({ body: Index })
@@ -29,9 +25,13 @@ export const newEvent = async (ctx) => {
   ctx.render({ body: NewEvent })
 }
 
+export const editEvent = async (ctx) => {
+  ctx.render({ body: EditEvent })
+}
+
 export const createEvent = async (e) => {
   e.preventDefault()
-  await eventApi.mutate(`{
+  await api.mutate(`{
     createEvent(
       name: "${state.get('newEvent').name}",
       presented_by: "${state.get('newEvent').presented_by}",
