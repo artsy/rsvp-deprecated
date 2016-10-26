@@ -4,8 +4,8 @@
 
 ### Meta
 * __State:__ development
-* __CI:__ [Semaphore](https://semaphoreci.com/artsy-it/rsvp)
-* __Point People:__ [@broskoski](https://github.com/broskoski), [@craigspaeth](https://github.com/craigspaeth),
+* __CI:__ [Semaphore](https://semaphoreci.com/artsy/rsvp)
+* __Point People:__ [@broskoski](https://github.com/broskoski), [@craigspaeth](https://github.com/craigspaeth)
 
 ### Set-Up
 
