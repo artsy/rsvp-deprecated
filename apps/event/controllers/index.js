@@ -53,7 +53,7 @@ export const createReservation = async (e) => {
   })
   state.select('reservation').set('guests', guests)
   await reservationApi.mutate(`{
-    tweet: createReservation(
+    createReservation(
       name: "${state.get('reservation').name}",
       email: "${state.get('reservation').email}",
       guests: [${guests}],

@@ -28,3 +28,19 @@ export const index = async (ctx) => {
 export const newEvent = async (ctx) => {
   ctx.render({ body: NewEvent })
 }
+
+export const createEvent = async (e) => {
+  e.preventDefault()
+  await eventApi.mutate(`{
+    createEvent(
+      name: "${state.get('newEvent').name}",
+      presented_by: "${state.get('newEvent').presented_by}",
+      closing_date: "${state.get('newEvent').closing_date}",
+      capacity: ${state.get('newEvent').capacity},
+      maximum_guests: ${state.get('newEvent').maximum_guests},
+    ) {
+      name
+    }
+  }`)
+  window.location = `/admin`
+}
