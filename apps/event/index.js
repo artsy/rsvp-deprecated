@@ -26,9 +26,3 @@ const app = module.exports = hotglue({
     ]
   }
 })
-
-if (require.main === module) {
-  connect('mongodb://localhost:27017/rsvp')
-  app.listen(process.env.PORT)
-  console.log('Listening on ' + process.env.PORT)
-}
