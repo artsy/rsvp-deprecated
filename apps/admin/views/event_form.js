@@ -45,12 +45,14 @@ view.render(({ event, onSubmit }) => {
       name: 'name',
       placeholder: `Event Title`,
       value: event.get('name'),
+      required: true,
       onChange: (e) => event.set('name', e.target.value),
     }),
     label('.label', "Presented By"),
     input('.input', {
       name: 'presented_by',
       placeholder: `Presented By`,
+      required: true,
       value: event.get('presented_by'),
       onChange: (e) => event.set('presented_by', e.target.value),
     }),
@@ -58,6 +60,7 @@ view.render(({ event, onSubmit }) => {
     input('.input', {
       name: 'closing_date',
       type: 'date',
+      required: true,
       value: event.get('closing_date'),
       onChange: (e) => event.set('closing_date', e.target.value),
     }),
@@ -65,12 +68,16 @@ view.render(({ event, onSubmit }) => {
     input('.input', {
       name: 'capacity',
       placeholder: `Event capacity`,
+      required: true,
+      value: event.get('capacity'),
       onChange: (e) => event.set('capacity', e.target.value),
     }),
     label('.label', "How Many Guests Can a User Invite?"),
     input('.input', {
       name: 'maximum_guests',
       placeholder: `How Many Guests Can a User Invite?`,
+      required: true,
+      value: event.get('maximum_guests'),
       onChange: (e) => event.set('maximum_guests', e.target.value),
     }),
     button('.button', 'Create Event')
