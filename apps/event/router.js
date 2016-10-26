@@ -6,6 +6,7 @@ import Head from '../../lib/head'
 
 const router = unikoa()
 
+router.use(bootstrap)
 router.use(render({
   head: Head,
   subscribe: (cb) => state.on('update', cb)
