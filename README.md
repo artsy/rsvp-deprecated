@@ -26,7 +26,7 @@ npm install
 ```
 - Start RSVP and Mongo
 ```
-npm start
+npm run dev
 ```
 - RSVP should now be running at http://localhost:3000/
 

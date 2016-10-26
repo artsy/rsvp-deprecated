@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "node": "NODE_PATH=$NODE_PATH:./lib node -r dotenv/config -r babel-core/register",
-    "start": "concurrently 'npm run node .' 'mongod'",
+    "dev": "concurrently 'npm run node .' 'mongod'",
+    "start": "npm run node",
     "lint": "standard",
     "lint-fix": "standard --fix",
     "mocha": "NODE_ENV=test mocha -r dotenv/config -r babel-core/register -r should",
@@ -35,7 +36,7 @@
     "envify": "^3.4.0",
     "graphql": "^0.7.2",
     "hotglue": "0.0.2",
-    "joiql-mongo": "^1.0.7",
+    "joiql-mongo": "^1.0.8",
     "koa": "^2.0.0-alpha.4",
     "koa-basic-auth": "^2.0.0",
     "lokka": "^1.7.0",
