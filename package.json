@@ -39,7 +39,7 @@
     "dotenv": "^2.0.0",
     "envify": "^3.4.0",
     "graphql": "^0.7.2",
-    "hotglue": "0.0.2",
+    "hotglue": "0.0.5",
     "joiql-mongo": "^1.0.9",
     "koa": "^2.0.0-alpha.4",
     "koa-basic-auth": "^2.0.0",
