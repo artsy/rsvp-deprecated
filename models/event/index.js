@@ -7,6 +7,7 @@ const event = model('event', {
   maximum_guests: number(),
   capacity: number(),
   closing_date: date(),
+  lock_fields: boolean(),
   is_at_capacity: boolean()
     .meta((is) => ({
       'update delete create': is.forbidden()

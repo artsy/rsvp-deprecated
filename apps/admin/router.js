@@ -1,7 +1,7 @@
 import unikoa from 'unikoa'
 import bootstrap from 'unikoa-bootstrap'
 import render from 'unikoa-react-render'
-import { index, state } from './controllers'
+import { index, state, newEvent } from './controllers'
 import Head from './views/head'
 
 const router = unikoa()
@@ -13,5 +13,6 @@ router.use(render({
 }))
 
 router.get('/admin', index)
+router.get('/admin/new_event', newEvent)
 
 export default router

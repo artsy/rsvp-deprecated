@@ -19,7 +19,6 @@ view.styles({
 })
 
 view.render(() => {
-  console.log("state.get('events')", state.get('events'))
   return div(
     header(),
     div('.container',
