@@ -12,6 +12,12 @@ router.use(render({
   subscribe: (cb) => state.on('update', cb)
 }))
 
+router.get('/favicon.ico', (ctx) => {
+  ctx.status = 200
+  ctx.set('Content-Type', 'image/x-icon')
+  ctx.body = ''
+})
+
 router.get('/:id', index)
 router.get('/:id/thank-you', thankYou)
 
