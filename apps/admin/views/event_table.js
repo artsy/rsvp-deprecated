@@ -5,7 +5,7 @@ import EventRow from './event_row'
 
 const view = veact()
 
-const { table, thead, th, tr, tbody, eventRow } = view.els({
+const { table, thead, th, tr, td, tbody, eventRow } = view.els({
   eventRow: EventRow
 })
 
@@ -17,6 +17,11 @@ view.styles({
     textAlign: 'left',
     padding: `${smallMargin / 2}`
   },
+  td: {
+    textAlign: 'center',
+    padding: '10px',
+    background: '#eee'
+  },
   thead: assign(
     type('avantgarde', 'smallHeadline'),
     { margin: `${smallMargin}px 0` }
@@ -27,8 +32,8 @@ view.styles({
   )
 })
 
-view.render(({ events }) => {
-  return table('.table',
+view.render(({ events }) =>
+  table('.table',
     thead('.thead',
       tr('.tr',
         th('.th', 'Event name'),
@@ -36,10 +41,16 @@ view.render(({ events }) => {
         th('.th', 'RSVP Count'),
       )
     ),
+
     tbody('.tbody',
-      map(events, (event, index) => eventRow({ event, index }))
+      (() => {
+        if(events){
+          return map(events, (event, index) => eventRow({ event, index }))
+        }
+        return tr(td('.td', { colSpan: 3 }, 'No events'))
+      })()
     )
   )
-})
+)
 
 export default view()
