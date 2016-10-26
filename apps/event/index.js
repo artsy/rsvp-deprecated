@@ -1,9 +1,8 @@
-const { connect } = require('joiql-mongo')
 const hotglue = require('hotglue')
 const babelify = require('babelify')
 const envify = require('envify')
 
-const app = module.exports = hotglue({
+module.exports = hotglue({
   relative: __dirname,
   server: {
     main: 'server.js',
@@ -26,3 +25,4 @@ const app = module.exports = hotglue({
     ]
   }
 })
+
