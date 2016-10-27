@@ -7,8 +7,8 @@ const app = new Koa()
 const { PORT, MONGO_URL } = process.env
 
 // Mount apps
-app.use(...event.middleware)
 app.use(...admin.middleware)
+app.use(...event.middleware)
 
 // Connect to Mongo and start server
 connect(MONGO_URL)
