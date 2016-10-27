@@ -24,8 +24,8 @@ export const index = async (ctx) => {
   )
   state.set('event', event)
   state.set('reservation', {
-    name: (name ? name : ''),
-    email: (email ? email : ''),
+    name: name,
+    email: email,
     event_id: ctx.params.id,
     guests: []
   })
@@ -49,10 +49,10 @@ export const createReservation = async (e) => {
   e.preventDefault()
   let guests = []
   if (!state.get('reservation').name) {
-    return state.set("error", 'Name required')
+    return state.set('error', 'Name required')
   }
   if (!state.get('reservation').email) {
-    return state.set("error", 'Email required')
+    return state.set('error', 'Email required')
   }
   times(state.get('num_of_guests'), (index) => {
     guests.push(`"${e.target[`guests[${index}]`].value}"`)

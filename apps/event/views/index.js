@@ -12,8 +12,9 @@ const { div, input, form, label, select, option, button, header } = view.els({
 
 view.styles({
   container: {
-    width: 400,
-    margin: '0 auto'
+    maxWidth: 400 + smallMargin,
+    margin: '0 auto',
+    padding: `0 ${smallMargin}px`
   },
   errors: assign(
     type('garamond', 'body'),
