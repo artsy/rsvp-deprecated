@@ -40,7 +40,7 @@
     "envify": "^3.4.0",
     "graphql": "^0.7.2",
     "hotglue": "0.0.7",
-    "joiql-mongo": "^1.0.9",
+    "joiql-mongo": "^1.0.10",
     "json2csv": "^3.7.1",
     "koa": "^2.0.0-alpha.4",
     "koa-basic-auth": "^2.0.0",
