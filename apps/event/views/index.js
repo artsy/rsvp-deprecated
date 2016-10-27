@@ -15,6 +15,14 @@ view.styles({
     width: 400,
     margin: '0 auto'
   },
+  errors: assign(
+    type('garamond', 'body'),
+    {
+      background: 'red',
+      padding: '10px',
+      color: 'white'
+    }
+  ),
   label: assign(
     type('avantgarde', 'smallHeadline'),
     {
@@ -48,16 +56,27 @@ view.styles({
 view.render(() =>
   div('.container',
     header(),
+    (() => {
+      if (state.get('error')) {
+        return div('.errors', state.get('error'))
+      }
+    })(),
     form({ onSubmit: createReservation },
       label('.label', 'Name'),
       input('.input', {
         name: 'name',
+        value: state.get('reservation').name,
+        disabled: state.get('event').lock_fields,
+        required: true,
         placeholder: `Name`,
         onChange: (e) => state.select('reservation').set('name', e.target.value)
       }),
       label('.label', 'Email'),
       input('.input', {
         name: 'email',
+        value: state.get('reservation').email,
+        required: true,
+        disabled: state.get('event').lock_fields,
         placeholder: `Email`,
         onChange: (e) => state.select('reservation').set('email', e.target.value)
       }),

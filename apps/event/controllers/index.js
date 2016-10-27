@@ -4,6 +4,7 @@ import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import Index from '../views'
 import ThankYou from '../views/thank_you'
+import qs from 'qs'
 
 const api = new Lokka({
   transport: new Transport(process.env.APP_URL + '/api/rsvp')
@@ -17,16 +18,18 @@ export const state = tree({
 })
 
 export const index = async (ctx) => {
+  const { name, email } = qs.parse(ctx.querystring)
   const { event } = await ctx.bootstrap(() =>
-    api.query(`{ event(_id: "${ctx.params.id}") { name presented_by maximum_guests } }`)
+    api.query(`{ event(_id: "${ctx.params.id}") { name presented_by maximum_guests lock_fields } }`)
   )
   state.set('event', event)
   state.set('reservation', {
-    name: '',
-    email: '',
+    name: (name ? name : ''),
+    email: (email ? email : ''),
     event_id: ctx.params.id,
     guests: []
   })
+
   ctx.render({ body: Index })
 }
 
@@ -45,6 +48,12 @@ export const setNumOfGuests = async (num) => {
 export const createReservation = async (e) => {
   e.preventDefault()
   let guests = []
+  if (!state.get('reservation').name) {
+    return state.set("error", 'Name required')
+  }
+  if (!state.get('reservation').email) {
+    return state.set("error", 'Email required')
+  }
   times(state.get('num_of_guests'), (index) => {
     guests.push(`"${e.target[`guests[${index}]`].value}"`)
   })
