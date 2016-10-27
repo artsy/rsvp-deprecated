@@ -26,7 +26,7 @@ const capacityListMiddleware = async (ctx, next) => {
   await next()
   await Promise.all(map(ctx.res.events, async (event) => {
     const count = await reservationCount(event._id)
-    event.is_at_capacity = count >= event.capacity
+    event.is_at_capacity = count > event.capacity
     return count
   }))
 }
@@ -34,13 +34,13 @@ const capacityListMiddleware = async (ctx, next) => {
 const capacityReadMiddleware = async (ctx, next) => {
   await next()
   const count = await reservationCount(ctx.res.event._id)
-  ctx.res.event.is_at_capacity = count >= ctx.res.event.capacity
+  ctx.res.event.is_at_capacity = count > ctx.res.event.capacity
 }
 
 event.on('list', capacityListMiddleware)
 event.on('read', capacityReadMiddleware)
 
-const reservationCount = async (eventId) => {
+export const reservationCount = async (eventId) => {
   const reservations = await db.reservations.find({ event_id: `${eventId}` }).toArray()
   return reduce(reservations, (count, reservation) => {
     if (reservation.guests) {

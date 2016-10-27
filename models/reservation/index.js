@@ -1,6 +1,6 @@
 import { model, string, array, date, boolean, db } from 'joiql-mongo'
 import { assign } from 'lodash'
-import event from '../event/index.js'
+import event, { reservationCount } from '../event/index.js'
 
 const reservation = model('reservation', {
   name: string(),
@@ -19,8 +19,8 @@ const reservation = model('reservation', {
 
 const isReservationWaitlisted = async (reservation) => {
   const reservationEvent = await event.find({ _id: `${reservation.event_id}` })
-  const reservationCount = await db.reservations.count({ event_id: `${reservation.event_id}` })
-  return reservationEvent.capacity <= reservationCount
+  const count = await reservationCount(reservation.event_id)
+  return count > reservationEvent.capacity
 }
 
 const isWaitlistedMiddleware = async (ctx, next) => {
