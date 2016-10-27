@@ -6,7 +6,7 @@ import json2csv from 'json2csv'
 import Index from '../views'
 import NewEvent from '../views/new_event'
 import EditEvent from '../views/edit_event'
-import { map } from 'lodash'
+import { map, sortBy } from 'lodash'
 
 const api = new Lokka({
   transport: new Transport(process.env.APP_URL + '/api/rsvp')
@@ -40,7 +40,7 @@ export const editEvent = async (ctx) => {
     } }`)
   )
   state.set('event', event)
-  state.set('reservations', reservations)
+  state.set('reservations', sortBy(reservations, (rsvp) => - new Date(rsvp.created_at)))
   ctx.render({ body: EditEvent })
 }
 
