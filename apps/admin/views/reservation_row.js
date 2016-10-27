@@ -45,6 +45,7 @@ view.render(({ reservation, index }) => {
   return tr(`${rowClass}`,
     td('.td', div(`.circle--${(reservation.is_waitlisted ? 'red' : 'green')}`, ' ')),
     td('.td', reservation.name),
+    td('.td', reservation.email),
     td('.td', reservation.guests.join(', ')),
     td('.td', moment.utc(reservation.created_at).calendar())
   )

@@ -38,6 +38,7 @@ view.render(({ reservations }) =>
       tr('.tr',
         th('.th', ''),
         th('.th', 'Name'),
+        th('.th', 'Email'),
         th('.th', 'Guests'),
         th('.th', 'RSVP Date'),
       )

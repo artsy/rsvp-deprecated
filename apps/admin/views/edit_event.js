@@ -18,13 +18,13 @@ view.styles({
   formContainer: {
     display: 'inline-block',
     margin: '100px 20px',
-    width: '45%',
+    width: '35%',
     'vertical-align': 'top'
   },
   reservationContainer: {
     display: 'inline-block',
     margin: '100px 20px',
-    width: '45%',
+    width: '55%',
     'vertical-align': 'top'
   },
   h1: assign(
