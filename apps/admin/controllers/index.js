@@ -40,7 +40,7 @@ export const editEvent = async (ctx) => {
     } }`)
   )
   state.set('event', event)
-  state.set('reservations', sortBy(reservations, (rsvp) => - new Date(rsvp.created_at)))
+  state.set('reservations', sortBy(reservations, (rsvp) => -new Date(rsvp.created_at)))
   ctx.render({ body: EditEvent })
 }
 
