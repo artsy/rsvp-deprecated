@@ -1,14 +1,14 @@
 import veact from 'veact'
 import { state, updateEvent } from '../controllers'
 import { assign } from 'lodash'
-import { type } from '../../../lib/styles'
+import { type, smallMargin } from '../../../lib/styles'
 import EventForm from './event_form'
 import ReservationTable from './reservation_table'
 import Header from './header'
 
 const view = veact()
 
-const { div, h1, eventForm, header, reservationTable } = view.els({
+const { div, h1, eventForm, header, reservationTable, a } = view.els({
   header: Header,
   eventForm: EventForm,
   reservationTable: ReservationTable
@@ -33,6 +33,19 @@ view.styles({
       padding: '10px 0',
       display: 'block'
     }
+  ),
+  btn: assign(
+    type('avantgarde', 'smallHeadline'),
+    {
+      display: 'inline-block',
+      'text-align': 'center',
+      background: 'black',
+      color: 'white',
+      padding: 10,
+      border: 'none',
+      float: 'right',
+      marginBottom: smallMargin
+    }
   )
 })
 
@@ -50,6 +63,7 @@ view.render(() =>
     ),
     div('.reservationContainer',
       h1('.h1', `${(state.get('event').reservation_count)} RSVPs`),
+      a('.btn', { href: `/admin/${state.get('event')._id}/rsvps.csv`, target: '_blank' }, 'Export RSVPs'),
       reservationTable({ reservations: state.get('reservations') })
     )
   )

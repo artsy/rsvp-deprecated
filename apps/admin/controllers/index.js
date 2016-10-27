@@ -2,9 +2,11 @@ import Lokka from 'lokka'
 import Transport from 'lokka-transport-http'
 import tree from 'universal-tree'
 import moment from 'moment'
+import json2csv from 'json2csv'
 import Index from '../views'
 import NewEvent from '../views/new_event'
 import EditEvent from '../views/edit_event'
+import { map } from 'lodash'
 
 const api = new Lokka({
   transport: new Transport(process.env.APP_URL + '/api/rsvp')
@@ -84,4 +86,21 @@ export const createEvent = async (e) => {
     console.log('err', err)
     state.set('error', err.rawError[0].message)
   }
+}
+
+export const rsvpsToCsv = async (ctx) => {
+  const { reservations } = await ctx.bootstrap(() =>
+    api.query(`{ reservations(event_id: "${ctx.params.id}"){
+      name is_waitlisted email guests created_at
+    } }`)
+  )
+  const fields = ['name', 'is_waitlisted', 'email', 'guests', 'created_at']
+  const data = map(reservations, (rsvp) => {
+    rsvp.guests = rsvp.guests.toString().replace(',', ' and ')
+    return rsvp
+  })
+  const csv = json2csv({ fields: fields, data: data, quotes: '' })
+  ctx.set('Content-disposition', `attachment; filename=${ctx.params.id}_rsvps.csv`)
+  ctx.set('Content-Type', 'text/csv')
+  ctx.body = csv
 }
