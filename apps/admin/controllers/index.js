@@ -32,7 +32,7 @@ export const newEvent = async (ctx) => {
 export const editEvent = async (ctx) => {
   const { event, reservations } = await ctx.bootstrap(() =>
     api.query(`{ event(_id: "${ctx.params.id}") {
-      name capacity presented_by maximum_guests reservation_count closing_date _id
+      name capacity presented_by maximum_guests reservation_count closing_date _id lock_fields
     } reservations(event_id: "${ctx.params.id}"){
       name is_waitlisted email guests created_at
     } }`)
@@ -53,6 +53,7 @@ export const updateEvent = async (e) => {
         closing_date: "${moment(state.get('event').closing_date).format()}",
         capacity: ${state.get('event').capacity},
         maximum_guests: ${state.get('event').maximum_guests},
+        lock_fields: ${state.get('event').lock_fields}
       ) {
         name
       }
@@ -73,6 +74,7 @@ export const createEvent = async (e) => {
         closing_date: "${state.get('newEvent').closing_date}",
         capacity: ${state.get('newEvent').capacity},
         maximum_guests: ${state.get('newEvent').maximum_guests},
+        lock_fields: ${state.get('event').lock_fields}
       ) {
         name
       }
