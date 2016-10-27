@@ -93,6 +93,12 @@ view.render(({ event, onSubmit, buttonText, error }) => {
       value: event.get('maximum_guests'),
       onChange: (e) => event.set('maximum_guests', e.target.value)
     }),
+    label('.label', 'Lock fields?'),
+    input('.input', {
+      type: 'checkbox',
+      defaultChecked: event.get('lock_fields'),
+      onClick: (e) => { event.set('lock_fields', e.target.checked) }
+    }),
     button('.button', `${buttonText}`)
   )
 })
