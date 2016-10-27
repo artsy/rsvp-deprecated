@@ -1,4 +1,4 @@
-import { model, string, array, date, boolean, db } from 'joiql-mongo'
+import { model, string, array, date, boolean } from 'joiql-mongo'
 import { assign } from 'lodash'
 import event, { reservationCount } from '../event/index.js'
 
