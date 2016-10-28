@@ -15,7 +15,7 @@ const api = new Lokka({
 export const state = tree({
   events: [],
   newEvent: {},
-  event: {},
+  event: { lock_fields: false },
   reservations: []
 })
 
